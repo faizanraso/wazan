@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
@@ -7,6 +8,8 @@ import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+
   return (
     <>
       <Head>
@@ -21,7 +24,7 @@ export default function Login() {
       <main>
         <section>
           <div>
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
               <a
                 href="/"
                 className="flex items-center mb-6 text-2xl font-semibold text-gray-900 gap-2"
@@ -62,11 +65,11 @@ export default function Login() {
                             id="remember"
                             aria-describedby="remember"
                             type="checkbox"
-                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
+                            className="w-4 h-4 border border-black rounded focus:ring-3 focus:ring-primary-300 "
                           />
                         </div>
                         <div className="ml-3 text-sm">
-                          <label htmlFor="remember" className="text-gray-500">
+                          <label htmlFor="remember" className="text-gray-600">
                             Remember me
                           </label>
                         </div>
@@ -74,7 +77,7 @@ export default function Login() {
                     </div>
                     <button
                       type="submit"
-                      className="w-full border border-5 text-black bg-primary-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center trasnition hover:text-white hover:bg-black focus:ring-4 focus:outline-none focus:ring "
+                      className="w-full border border-5 text-black bg-primary-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition hover:text-white hover:bg-black focus:ring-4 focus:outline-none focus:ring "
                     >
                       Lets do This 🏋️‍♂️
                     </button>
