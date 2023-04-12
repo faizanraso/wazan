@@ -19,13 +19,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className="">
+      <header className={inter.className}>
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
           <div className="sm:flex sm:items-center sm:justify-between">
             <Link href="/">
               <div className="flex text-center sm:text-left inline-block items-center">
-                <Image src={logo} alt="Wazan logo" height={50} />
-                <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl px-3">
+                <div className="rounded-lg truncate">
+                  <Image src={logo} alt="Wazan logo" height={45} />
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl px-2">
                   Wazan
                 </h1>
               </div>
@@ -67,12 +69,29 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <main className="flex flex-col px-20 py-16 min-h-screen">
-        <h1 className="text-xl font-bold underline text-black">Hello world!</h1>
-        <p className="mt-1.5 text-sm text-gray-500">
-          A simple and elegant way to track your gains 💪🏽
-        </p>
+      <main className={inter.className}>
+        <div className="flex flex-col px-20 py-16 min-h-screen text-center ">
+          <section className="justify-center">
+            <h1 className="text-7xl font-bold text-black py-5 font-extrabold">
+              Track Your Fitness Progress. Simply.
+            </h1>
+            <p className="mt-1.5 text-lg text-gray-600 py-5">
+              Say goodbye to complicated workout trackers and hello to a simpler
+              way to track your fitness progress. Wazan makes it easy to log
+              PR's, bodyweight, calories, and more, all in one convenient place.
+            </p>
+            <Link href="/login">
+              <button className="flex mx-auto mt-5 items-center justify-center gap-2 rounded-xl border-4 border-black text-black px-8 py-4 font-bold shadow-[6px_6px_0_0_#000] transition hover:shadow-none focus:outline-none focus:ring active:bg-pink-50">
+                Track my Gains{" "}
+                <span aria-hidden="true" role="img">
+                  💪🏽
+                </span>
+              </button>
+            </Link>
+          </section>
+        </div>
       </main>
+      <footer>{/* footer */}</footer>
     </>
   );
 }
