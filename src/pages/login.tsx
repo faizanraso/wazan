@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
+
 import { Inter } from "next/font/google";
 import logo from "../../public/wazan-logo-with-background.png";
-import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Login() {
   const [email, setEmail] = useState("");
+
+  const handleLogin = async (e: { preventDefault: () => void }) => {
+    toast("Here is your toast.");
+  };
 
   return (
     <>
@@ -56,6 +62,8 @@ export default function Login() {
                         id="email"
                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                         placeholder="name@company.com"
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                       />
                     </div>
                     <div className="flex items-center justify-between">
@@ -78,8 +86,9 @@ export default function Login() {
                     <button
                       type="submit"
                       className="w-full border border-5 text-black bg-primary-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition hover:text-white hover:bg-black focus:ring-4 focus:outline-none focus:ring "
+                      onClick={handleLogin}
                     >
-                      Lets do This 🏋️‍♂️
+                      Lets do this 🏋️‍♂️
                     </button>
                   </form>
                 </div>
@@ -88,6 +97,7 @@ export default function Login() {
           </div>
         </section>
       </main>
+      <Toaster />
     </>
   );
 }
