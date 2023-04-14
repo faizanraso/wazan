@@ -12,8 +12,20 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Login() {
   const [email, setEmail] = useState("");
 
+  const validateEmail = (email: string) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      return true;
+    }
+    return false;
+  };
+
   const handleLogin = async (e: { preventDefault: () => void }) => {
-    toast("Here is your toast.");
+    if (!validateEmail(email)) {
+      return;
+    } else {
+      // code to login
+      return;
+    }
   };
 
   return (
