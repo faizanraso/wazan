@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Auth } from "@supabase/auth-ui-react";
+import { useUser } from "@supabase/auth-helpers-react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import { Inter } from "next/font/google";
@@ -11,9 +13,11 @@ import { customTheme } from "@/styles/LoginUITheme";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Login() {
+  const [user, setUser] = useState(Auth.useUser());
   const session = useSession();
   const supabase = useSupabaseClient();
-  const [email, setEmail] = useState("");
+
+  console.log(session);
 
   return (
     <>
@@ -56,6 +60,15 @@ export default function Login() {
                       container: "w-full",
                       label: "text-sm font-medium text-gray-900",
                       button: "font-medium",
+                      input: "tracking-normal",
+                    },
+                  }}
+                  localization={{
+                    variables: {
+                      sign_in: {
+                        email_input_placeholder: "name@company.com",
+                        password_input_placeholder: "●●●●●●●●●",
+                      },
                     },
                   }}
                   theme="default"
