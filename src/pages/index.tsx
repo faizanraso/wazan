@@ -20,7 +20,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className={inter.className}>
-        <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-screen-xl px-4 py-8 fixed top-0 w-full bg-white bg-opacity-50 backdrop-blur-md border b-1 sm:py-10 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link href="/">
               <div className="flex text-center sm:text-left inline-block items-center">
@@ -32,8 +32,7 @@ export default function Home() {
                 </h1>
               </div>
             </Link>
-
-            <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
+            <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center sticky top-0">
               <Link href="https://github.com/faizanraso/wazan">
                 <button
                   className="inline-flex items-center justify-center rounded-lg border border-gray-200 px-5 py-3 text-gray-700 transition hover:border-black hover:text-gray-700 focus:outline-none focus:ring"
@@ -70,7 +69,7 @@ export default function Home() {
         </div>
       </header>
       <main className={inter.className}>
-        <div className="flex flex-col px-20 py-16 min-h-screen text-center ">
+        <div className="flex flex-col px-20 py-16 mt-32 min-h-screen text-center ">
           <section className="justify-center">
             <h1 className="text-7xl font-bold text-black py-5 font-extrabold">
               Track Your Fitness Progress.{" "}
