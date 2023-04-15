@@ -1,36 +1,27 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
-import toast, { Toaster } from "react-hot-toast";
+import { Auth } from "@supabase/auth-ui-react";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import { Inter } from "next/font/google";
 import logo from "../../public/wazan-logo-with-background.png";
+import { customTheme } from "@/styles/LoginUITheme";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Login() {
+  const session = useSession();
+  const supabase = useSupabaseClient();
   const [email, setEmail] = useState("");
-
-  const validateEmail = (email: string) => {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      return true;
-    }
-    return false;
-  };
-
-  const handleLogin = async (e: { preventDefault: () => void }) => {
-    if (!validateEmail(email)) {
-      return;
-    } else {
-      // code to login
-      return;
-    }
-  };
 
   return (
     <>
       <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
         <title>Login to Wazan</title>
         <meta
           name="description"
@@ -39,7 +30,7 @@ export default function Login() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className={inter.className}>
         <section>
           <div>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
@@ -55,61 +46,26 @@ export default function Login() {
                 />
                 Wazan
               </a>
-              <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 ">
-                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                  <h1 className="text-xl font-bold leading-tight tracking-tight text-black md:text-2xl">
-                    Enter your email below
-                  </h1>
-                  <form className="space-y-4 md:space-y-6" action="#">
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block mb-2 text-sm font-medium text-gray-900 "
-                      >
-                        Your email
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                        placeholder="name@company.com"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-start">
-                        <div className="flex items-center h-5">
-                          <input
-                            id="remember"
-                            aria-describedby="remember"
-                            type="checkbox"
-                            className="w-4 h-4 border border-black rounded focus:ring-3 focus:ring-primary-300 "
-                          />
-                        </div>
-                        <div className="ml-3 text-sm">
-                          <label htmlFor="remember" className="text-gray-600">
-                            Remember me
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full border border-5 text-black bg-primary-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition hover:text-white hover:bg-black focus:ring-4 focus:outline-none focus:ring "
-                      onClick={handleLogin}
-                    >
-                      Lets do this 🏋️‍♂️
-                    </button>
-                  </form>
-                </div>
+              <div className="w-full bg-white rounded-lg shadow p-10 md:mt-0 sm:max-w-md xl:p-0 ">
+                <Auth
+                  supabaseClient={supabase}
+                  appearance={{
+                    theme: customTheme,
+                    extend: true,
+                    className: {
+                      container: "w-full",
+                      label: "text-sm font-medium text-gray-900",
+                      button: "font-medium",
+                    },
+                  }}
+                  theme="default"
+                  providers={["apple", "google", "github"]}
+                />
               </div>
             </div>
           </div>
         </section>
       </main>
-      <Toaster />
     </>
   );
 }
