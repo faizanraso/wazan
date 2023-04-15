@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Auth } from "@supabase/auth-ui-react";
-import { useUser } from "@supabase/auth-helpers-react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import { Inter } from "next/font/google";
@@ -13,19 +12,18 @@ import { customTheme } from "@/styles/LoginUITheme";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Login() {
-  const [user, setUser] = useState(Auth.useUser());
   const session = useSession();
   const supabase = useSupabaseClient();
 
-  console.log(session);
+  useEffect(() => {
+    if (session) {
+      console.log(session);
+    }
+  }, [session]);
 
   return (
     <>
       <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
         <title>Login to Wazan</title>
         <meta
           name="description"
@@ -67,12 +65,12 @@ export default function Login() {
                     variables: {
                       sign_in: {
                         email_input_placeholder: "name@company.com",
-                        password_input_placeholder: "●●●●●●●●●",
+                        password_input_placeholder: "* * * * * * * * *",
                       },
                     },
                   }}
                   theme="default"
-                  providers={["apple", "google", "github"]}
+                  providers={["github"]}
                 />
               </div>
             </div>
