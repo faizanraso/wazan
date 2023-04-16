@@ -18,7 +18,7 @@ export default function Login() {
 
   useEffect(() => {
     if (session) {
-      push("/dashboard");
+      push("/gains");
     }
   }, [session]);
 

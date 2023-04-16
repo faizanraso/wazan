@@ -23,10 +23,10 @@ export default function Header() {
               </div>
             </Link>
           </div>
-          <div className="flex ">
+          <div className="flex">
             <nav className="flex flex-row text-black text-xs gap-3 font-semibold justify-center items-center">
               <a
-                href="/about"
+                href="/gains"
                 className="block border-b-4 border-transparent hover:border-current hover:text-sky-600"
               >
                 My Gains{" "}
@@ -44,14 +44,16 @@ export default function Header() {
                   📝
                 </span>
               </a>
-              <a href="/">
-                <img
-                  alt="Man"
-                  src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                  className="h-8 w-8 rounded-full object-cover hover:drop-shadow-2xl"
-                />
-              </a>
             </nav>
+          </div>
+          <div className="flex ">
+            <a href="/">
+              <img
+                alt="Man"
+                src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                className="h-8 w-8 rounded-full object-cover hover:drop-shadow-2xl"
+              />
+            </a>
           </div>
         </div>
       </div>
