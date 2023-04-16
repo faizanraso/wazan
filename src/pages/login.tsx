@@ -14,10 +14,11 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Login() {
   const session = useSession();
   const supabase = useSupabaseClient();
+  const { push } = useRouter();
 
   useEffect(() => {
     if (session) {
-      console.log(session);
+      push("/gains");
     }
   }, [session]);
 
