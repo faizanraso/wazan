@@ -24,7 +24,7 @@ export default function Dashboard() {
   return (
     <>
       <Head>
-        <title>Wazan - Fitness Tracker</title>
+        <title>Wazan - Gains</title>
         <meta
           name="description"
           content="A simple and elegant workout tracker"
@@ -34,9 +34,14 @@ export default function Dashboard() {
       </Head>
       <Header />
       <main className={inter.className}>
-        <div className="flex flex-col px-20 py-8 mt-20 min-h-screen text-center ">
-          <section className="justify-center">
-            <p className="text-black">Test</p>
+        <div className="flex flex-col px-4 py-8 mt-20 min-h-screen sm:px-6 lg:px-8">
+          <section className="">
+            <h1 className="text-black text-2xl font-bold">
+              My Gains{" "}
+              <span aria-hidden="true" role="img">
+                🏋️‍♂️
+              </span>
+            </h1>
           </section>
           <section>{/* screen shot of app */}</section>
         </div>
