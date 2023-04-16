@@ -14,12 +14,6 @@ export default function Home() {
   const session = useSession();
   const { push } = useRouter();
 
-  useEffect(() => {
-    if (session) {
-      push("/dashboard");
-    }
-  }, [session]);
-
   return (
     <>
       <Head>

@@ -1,13 +1,25 @@
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { Inter } from "next/font/google";
+import { useSession } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
 
-import logo from "../../public/wazan-logo-with-background.png";
+import { Inter } from "next/font/google";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Dashboard() {
+  const session = useSession();
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (!session) {
+      push("/login");
+    }
+  }, [session]);
+
   return (
     <>
       <Head>
@@ -19,11 +31,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className={inter.className}>
-        <div className="mx-auto max-w-screen-xl px-4 py-8 fixed top-0 w-full bg-white bg-opacity-50 backdrop-blur-md border b-1 sm:py-10 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">{/* temp */}</div>
-        </div>
-      </header>
+      <Header />
       <main className={inter.className}>
         <div className="flex flex-col px-20 py-16 mt-32 min-h-screen text-center ">
           <section className="justify-center">
