@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WeeklyWorkouts from "@/components/WeeklyWorkouts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,18 +33,20 @@ export default function Dashboard() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <Header menuItem={1} />
       <main className={inter.className}>
         <div className="flex flex-col px-4 py-8 mt-20 min-h-screen sm:px-6 lg:px-8">
-          <section className="">
+          {/* <section className="">
             <h1 className="text-black text-2xl font-bold">
               My Gains{" "}
               <span aria-hidden="true" role="img">
                 🏋️‍♂️
               </span>
             </h1>
+          </section> */}
+          <section>
+            <WeeklyWorkouts />
           </section>
-          <section>{/* screen shot of app */}</section>
         </div>
       </main>
       <Footer />
