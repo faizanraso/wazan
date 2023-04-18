@@ -27,7 +27,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className={inter.className}>
-        <div className="mx-auto max-w-screen-2xl px-4 py-8 fixed top-0 w-full bg-white bg-opacity-50 backdrop-blur-md border b-1 sm:py-10 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-screen px-4 py-8 fixed top-0 w-full bg-white bg-opacity-50 backdrop-blur-md border b-1 sm:py-10 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link href="/">
               <div className="flex text-center sm:text-left inline-block items-center">
