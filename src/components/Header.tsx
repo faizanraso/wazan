@@ -6,7 +6,7 @@ import logo from "../../public/wazan-logo-with-background.png";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Header(props: { menuItem: number }) {
+export default function Header() {
   return (
     <header className={inter.className}>
       <div className="mx-auto max-w-screen px-4 py-8 fixed top-0 w-full bg-white bg-opacity-50 backdrop-blur-md border b-1 sm:pt-6 sm:pb-4 sm:px-6 lg:px-8">
@@ -35,7 +35,7 @@ export default function Header(props: { menuItem: number }) {
                 </span>
               </a>
               <a
-                href="/news"
+                href="/track"
                 className="block border-b-4 border-transparent hover:border-current hover:text-sky-600"
               >
                 Track{" "}
