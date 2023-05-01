@@ -24,7 +24,7 @@ export default function Header() {
             </Link>
           </div>
           <div className="flex">
-            <nav className="flex flex-row text-black text-xs gap-3 font-semibold justify-center items-center">
+            {/* <nav className="flex flex-row text-black text-xs gap-3 font-semibold justify-center items-center">
               <a
                 href="/gains"
                 className="block border-b-4 border-transparent hover:border-current hover:text-sky-600"
@@ -34,16 +34,7 @@ export default function Header() {
                   🏋️‍♂️
                 </span>
               </a>
-              <a
-                href="/track"
-                className="block border-b-4 border-transparent hover:border-current hover:text-sky-600"
-              >
-                Track{" "}
-                <span aria-hidden="true" role="img">
-                  📝
-                </span>
-              </a>
-            </nav>
+            </nav> */}
           </div>
           <div className="flex ">
             <a href="/">
