@@ -33,7 +33,7 @@ export default function Dashboard() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header menuItem={1} />
+      <Header />
       <main className={inter.className}>
         <div className="flex flex-col px-4 py-8 mt-20 min-h-screen sm:px-6 lg:px-8">
           {/* <section className="">
