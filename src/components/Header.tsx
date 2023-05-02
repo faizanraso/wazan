@@ -23,15 +23,28 @@ export default function Header() {
               </div>
             </Link>
           </div>
-          <div className="flex"></div>
-          <div className="flex ">
-            <a href="/">
-              <img
-                alt="Man"
-                src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                className="h-8 w-8 rounded-full object-cover hover:drop-shadow-2xl"
-              />
-            </a>
+          <div className="flex items-center text-center justify-center text-xs font-medium">
+            <div className="px-1">
+              <button className="flex items-center p-2 justify-center text-indigo-100 transition-colors duration-150 bg-cyan-700 rounded-lg focus:shadow-outline hover:bg-cyan-800">
+                Add Data&nbsp;
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                    clip-rule="evenodd"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <div className="px-1">
+              <a href="/">
+                <img
+                  alt="Man"
+                  src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                  className="h-8 w-8 rounded-full object-cover hover:drop-shadow-2xl"
+                />
+              </a>
+            </div>
           </div>
         </div>
       </div>
