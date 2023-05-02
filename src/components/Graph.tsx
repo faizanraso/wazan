@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "recharts";
 import { Inter } from "next/font/google";
+import convertDateFormat from "@/functions/ConvertDateFormat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,23 @@ export default function Graph(props: any) {
     }
   }
 
+  const CustomTooltip = (props: any) => {
+    {
+      const { active, payload, label } = props;
+      if (active && payload && payload.length) {
+        return (
+          <section className={inter.className} role="tooltip">
+            <div className="flex text-xs bg-white p-3 text-gray-900 font-medium flex-col">
+              <p className="block">{`${convertDateFormat(label)}`}</p>
+              <p className="block">{`Weight: ${payload[0].value} lbs`}</p>
+            </div>
+          </section>
+        );
+      }
+      return null;
+    }
+  };
+
   return (
     <div className="flex text-center justify-center items-center mx-auto items-center">
       <LineChart
@@ -51,7 +69,7 @@ export default function Graph(props: any) {
           tick={CustomizedAxisTick}
         />
         <YAxis padding={{ top: 10, bottom: 0 }} tick={{ fontSize: 10 }} />
-        <Tooltip />
+        <Tooltip content={CustomTooltip} />
       </LineChart>
     </div>
   );

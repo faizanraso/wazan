@@ -60,20 +60,16 @@ export default function Dashboard() {
               <Graph data={bodyWeightData} />
             </div>
             <div className="bench-PR-div text-center">
-              <h2 className="text-black text-xl font-semibold py-5">
-                Bench PR
-              </h2>
+              <h2 className="text-black text-xl font-semibold py-5">Bench</h2>
               <Graph data={benchData} />
             </div>
             <div className="squat-PR-div text-center">
-              <h2 className="text-black text-xl font-semibold py-5">
-                Squat PR
-              </h2>
+              <h2 className="text-black text-xl font-semibold py-5">Squat</h2>
               <Graph data={squatData} />
             </div>
             <div className="deadlift-PR-div text-center">
               <h2 className="text-black text-xl font-semibold py-5">
-                Deadlift PR
+                Deadlift
               </h2>
               <Graph data={deadliftData} />
             </div>
