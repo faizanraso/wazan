@@ -35,45 +35,31 @@ export default function Dashboard() {
   const data = [
     {
       name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
+      data: 4000,
     },
     {
       name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+      data: 3000,
     },
     {
       name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
+      data: 2000,
     },
     {
       name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
+      data: 2780,
     },
     {
       name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
+      data: 1890,
     },
     {
       name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
+      data: 2390,
     },
     {
       name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      data: 3490,
     },
   ];
 
@@ -106,10 +92,10 @@ export default function Dashboard() {
                 data={data}
                 margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
               >
-                <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <Line type="natural" dataKey="data" stroke="#7bb0b9" />
+                <CartesianGrid stroke="#cccc" strokeDasharray="2 2" />
+                <XAxis dataKey="name" padding={{ left: 10, right: 10 }} />
+                <YAxis padding={{ top: 10, bottom: 10 }} />
                 <Tooltip />
               </LineChart>
             </div>
