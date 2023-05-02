@@ -41,7 +41,7 @@ export default function Dashboard() {
       </Head>
       <Header />
       <main className={inter.className}>
-        <div className="flex flex-col px-4 py-3 mt-20 min-h-screen sm:px-6 lg:px-8 mx-auto">
+        <div className="flex flex-col px-4 py-3 mt-20 sm:px-6 lg:px-8 mx-auto">
           <section className="text-center">
             {/* <h1 className="text-black text-2xl font-bold pb-8">
               My Gains{" "}
@@ -51,7 +51,7 @@ export default function Dashboard() {
             </h1> */}
             {/* <WeeklyWorkouts /> */}
           </section>
-          <section>
+          <section className="flex md:grid md:grid-cols-2">
             <div className="body-weight-div text-center">
               <h2 className="text-black text-xl font-semibold py-5">
                 Body Weight
