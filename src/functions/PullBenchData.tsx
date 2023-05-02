@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-interface BodyWeightData {
+interface BenchData {
   date: string;
   weight: number;
 }
 
-export default function PullBodyWeightData() {
+export default function PullBenchData() {
   const supabase = useSupabaseClient();
-  const [bodyWeightData, setBodyWeightData] = useState<BodyWeightData[]>([]);
+  const [benchData, setBenchData] = useState<BenchData[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       let { data, error } = await supabase
-        .from("body_weight_data")
+        .from("pr_data")
         .select("date, weight")
         .eq("user_id", (await supabase.auth.getUser()).data.user?.id)
+        .eq("exercise", "bench")
         .order("date", { ascending: true });
       if (error) console.log("error", error);
-      if (data) setBodyWeightData(data);
+      if (data) setBenchData(data);
     };
     fetchData();
   }, [supabase]);
 
-  return bodyWeightData;
+  return benchData;
 }
