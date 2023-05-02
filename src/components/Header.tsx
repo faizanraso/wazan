@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Header() {
   return (
     <header className={inter.className}>
-      <div className="mx-auto max-w-screen px-4 py-8 fixed top-0 w-full bg-white bg-opacity-50 backdrop-blur-md border b-1 sm:pt-6 sm:pb-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-screen px-4 py-8 fixed top-0 w-full bg-white bg-opacity-50 backdrop-blur-md border b-1 sm:pt-6 sm:pb-4 sm:px-6 lg:px-8 z-50">
         <div className="flex items-center justify-between">
           <div>
             <Link href="/gains">
@@ -23,19 +23,7 @@ export default function Header() {
               </div>
             </Link>
           </div>
-          <div className="flex">
-            {/* <nav className="flex flex-row text-black text-xs gap-3 font-semibold justify-center items-center">
-              <a
-                href="/gains"
-                className="block border-b-4 border-transparent hover:border-current hover:text-sky-600"
-              >
-                My Gains{" "}
-                <span aria-hidden="true" role="img">
-                  🏋️‍♂️
-                </span>
-              </a>
-            </nav> */}
-          </div>
+          <div className="flex"></div>
           <div className="flex ">
             <a href="/">
               <img
