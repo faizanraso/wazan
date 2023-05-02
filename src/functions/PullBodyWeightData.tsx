@@ -6,7 +6,7 @@ interface BodyWeightData {
   weight: number;
 }
 
-export default function PullData() {
+export default function PullBodyWeightData() {
   const supabase = useSupabaseClient();
   const [bodyWeightData, setBodyWeightData] = useState<BodyWeightData[]>([]);
 
@@ -23,11 +23,5 @@ export default function PullData() {
     fetchData();
   }, [supabase]);
 
-  console.log(bodyWeightData);
-
-  return (
-    <div className="flex text-center justify-center items-center mx-auto items-center">
-      <h1 className="text-3xl font-bold">Pull Data</h1>
-    </div>
-  );
+  return bodyWeightData;
 }

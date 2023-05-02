@@ -7,11 +7,12 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Graph from "@/components/Graph";
-import PullData from "@/components/PullData";
+import PullBodyWeightData from "@/functions/PullBodyWeightData";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Dashboard() {
+  const bodyWeightData = PullBodyWeightData();
   const session = useSession();
   const { push } = useRouter();
 
@@ -20,6 +21,8 @@ export default function Dashboard() {
       push("/login");
     }
   }, [session]);
+
+  console.log(bodyWeightData);
 
   return (
     <>
@@ -44,10 +47,14 @@ export default function Dashboard() {
             </h1>
             {/* <WeeklyWorkouts /> */}
           </section>
-          <section>{/* <Graph /> */}</section>
+          <section>
+            <div className="text-center">
+              <h2 className="text-black text-xl font-bold pb-8">Body Weight</h2>
+              <Graph data={bodyWeightData} />
+            </div>
+          </section>
         </div>
       </main>
-      <PullData />
       <Footer />
     </>
   );

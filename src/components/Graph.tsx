@@ -11,7 +11,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Graph() {
+export default function Graph(props: any) {
   function CustomizedAxisTick(props: any) {
     {
       const { x, y, stroke, payload } = props;
@@ -26,7 +26,7 @@ export default function Graph() {
             textAnchor="end"
             fill="#666"
             transform="rotate(-35)"
-            fontSize={10}
+            fontSize={5}
           >
             {payload.value}
           </text>
@@ -40,7 +40,7 @@ export default function Graph() {
       <LineChart
         width={500}
         height={250}
-        data={[]}
+        data={props.data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
       >
         <Line type="natural" dataKey="weight" stroke="#7bb0b9" />
@@ -50,7 +50,7 @@ export default function Graph() {
           padding={{ left: 10, right: 10 }}
           tick={CustomizedAxisTick}
         />
-        <YAxis padding={{ top: 10, bottom: 10 }} tick={{ fontSize: 10 }} />
+        <YAxis padding={{ top: 10, bottom: 0 }} tick={{ fontSize: 10 }} />
         <Tooltip />
       </LineChart>
     </div>
