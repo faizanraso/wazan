@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import convertDateFormat from "./ConvertDateFormat";
 
 interface BodyWeightData {
   date: string;
@@ -22,6 +23,9 @@ export default function PullBodyWeightData() {
     };
     fetchData();
   }, [supabase]);
+  bodyWeightData.forEach((val, index) => {
+    val.date = convertDateFormat(val.date);
+  });
 
   return bodyWeightData;
 }
