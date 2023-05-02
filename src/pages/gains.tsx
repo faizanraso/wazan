@@ -52,23 +52,27 @@ export default function Dashboard() {
             </h1> */}
             {/* <WeeklyWorkouts /> */}
           </section>
-          <section className="flex md:grid md:grid-cols-2">
-            <div className="body-weight-div text-center">
-              <h2 className="text-black text-xl font-semibold py-5">
+          <section className="flex md:grid md:grid-cols-2 gap-4 justify-center items-center my-auto">
+            <div className="body-weight-div text-center rounded-xl bg-white p-3 border border-2 border-gray-100">
+              <h2 className="text-xs text-black text-xl font-semibold py-5">
                 Body Weight
               </h2>
               <Graph data={bodyWeightData} />
             </div>
-            <div className="bench-PR-div text-center">
-              <h2 className="text-black text-xl font-semibold py-5">Bench</h2>
+            <div className="bench-PR-div text-center rounded-xl bg-white p-3 border border-2 border-gray-100">
+              <h2 className="text-xs text-black text-xl font-semibold py-5">
+                Bench
+              </h2>
               <Graph data={benchData} />
             </div>
-            <div className="squat-PR-div text-center">
-              <h2 className="text-black text-xl font-semibold py-5">Squat</h2>
+            <div className="squat-PR-div text-center rounded-xl bg-white p-3 border border-2 border-gray-100">
+              <h2 className="text-xs text-black text-xl font-semibold py-5">
+                Squat
+              </h2>
               <Graph data={squatData} />
             </div>
-            <div className="deadlift-PR-div text-center">
-              <h2 className="text-black text-xl font-semibold py-5">
+            <div className="deadlift-PR-div text-center rounded-xl bg-white p-3 border border-2 border-gray-100">
+              <h2 className="text-xs text-black text-xl font-semibold py-5">
                 Deadlift
               </h2>
               <Graph data={deadliftData} />

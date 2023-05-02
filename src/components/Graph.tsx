@@ -56,7 +56,7 @@ export default function Graph(props: any) {
   return (
     <div className="flex text-center justify-center items-center mx-auto items-center">
       <LineChart
-        width={500}
+        width={450}
         height={250}
         data={props.data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
