@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
+
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,6 +12,7 @@ import PullBodyWeightData from "@/functions/PullBodyWeightData";
 import PullBenchData from "@/functions/PullBenchData";
 import PullSquatData from "@/functions/PullSquatData";
 import PullDeadliftData from "@/functions/PullDeadliftData";
+import AddDataModal from "@/components/AddDataModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +21,7 @@ export default function Dashboard() {
   const benchData = PullBenchData();
   const squatData = PullSquatData();
   const deadliftData = PullDeadliftData();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const session = useSession();
   const { push } = useRouter();
@@ -28,6 +31,14 @@ export default function Dashboard() {
       push("/login");
     }
   }, [session]);
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+  
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   return (
     <>
@@ -45,7 +56,10 @@ export default function Dashboard() {
         <div className="flex flex-col px-4 py-3 mt-20 sm:px-6 lg:px-8 mx-auto">
           <section className="text-center">
             <div className="px-1 text-xs font-medium p-3 float-right">
-              <button className="flex items-center p-2 justify-center text-indigo-100 transition-colors duration-150 bg-cyan-700 rounded-lg focus:shadow-outline hover:bg-cyan-800">
+              <button
+                onClick={openModal}
+                className="flex items-center p-2 justify-center text-indigo-100 transition-colors duration-150 bg-cyan-700 rounded-lg focus:shadow-outline hover:bg-cyan-800"
+              >
                 Add Data&nbsp;
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                   <path
@@ -55,6 +69,7 @@ export default function Dashboard() {
                   ></path>
                 </svg>
               </button>
+              <AddDataModal isOpen={modalIsOpen} onRequestClose={closeModal} />
             </div>
             {/* <WeeklyWorkouts /> */}
           </section>
