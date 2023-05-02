@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer aria-label="Site Footer">
-      <div className="p-8 mt-16 fixed inset-x-0 bottom-0 border-t border-gray-200 text-center sm:text-left sm:flex sm:items-center sm:justify-between lg:mt-24">
+      <div className="p-8 mt-16  inset-x-0 bottom-0 border-t border-gray-200 text-center sm:text-left sm:flex sm:items-center sm:justify-between lg:mt-24">
         <p className="text-black text-xs">Made by Faizan Rasool 👨🏽‍💻</p>
         <ul className="flex justify-center gap-3 mt-8 sm:mt-0 lg:justify-end">
           <li>

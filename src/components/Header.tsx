@@ -23,8 +23,7 @@ export default function Header() {
               </div>
             </Link>
           </div>
-          <div className="flex">
-          </div>
+          <div className="flex"></div>
           <div className="flex ">
             <a href="/">
               <img

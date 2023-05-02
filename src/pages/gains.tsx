@@ -9,15 +9,15 @@ import Footer from "@/components/Footer";
 import Graph from "@/components/Graph";
 import PullBodyWeightData from "@/functions/PullBodyWeightData";
 import PullBenchData from "@/functions/PullBenchData";
+import PullSquatData from "@/functions/PullSquatData";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Dashboard() {
   const bodyWeightData = PullBodyWeightData();
   const benchData = PullBenchData();
-  console.log(benchData);
-  // const squatPRData = PullSquatData();
-  // const deadliftPRData = PullDeadliftData();
+  const squatData = PullSquatData();
+  // const deadliftData = PullDeadliftData();
 
   const session = useSession();
   const { push } = useRouter();
@@ -58,11 +58,17 @@ export default function Dashboard() {
               </h2>
               <Graph data={bodyWeightData} />
             </div>
-            <div className="body-weight-div text-center">
+            <div className="bench-PR-div text-center">
               <h2 className="text-black text-xl font-semibold py-5">
                 Bench PR
               </h2>
               <Graph data={benchData} />
+            </div>
+            <div className="squat-PR-div text-center">
+              <h2 className="text-black text-xl font-semibold py-5">
+                Squat PR
+              </h2>
+              <Graph data={squatData} />
             </div>
           </section>
         </div>
