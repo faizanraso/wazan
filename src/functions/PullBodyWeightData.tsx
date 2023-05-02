@@ -23,9 +23,6 @@ export default function PullBodyWeightData() {
     };
     fetchData();
   }, [supabase]);
-  bodyWeightData.forEach((val, index) => {
-    val.date = convertDateFormat(val.date);
-  });
 
   return bodyWeightData;
 }
