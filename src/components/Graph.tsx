@@ -8,37 +8,10 @@ import {
   Tooltip,
 } from "recharts";
 import { Inter } from "next/font/google";
-import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Graph() {
-  const session = useSession();
-  const supabase = useSupabaseClient();
-  const [data, setData] = React.useState([]);
-
-  React.useEffect(() => {
-    fetchGraphData();
-  }, []);
-
-  async function fetchGraphData() {
-    const user = (await supabase.auth.getUser()).data.user;
-    const { data: bodyWeightData, error } = await supabase
-      .from("body_weight_data")
-      .select("date, weight")
-      .eq("user_id", user!.id)
-      .order("date", { ascending: true });
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    console.log("Body weight data:", bodyWeightData);
-
-    return bodyWeightData;
-  }
-
   function CustomizedAxisTick(props: any) {
     {
       const { x, y, stroke, payload } = props;
@@ -64,10 +37,10 @@ export default function Graph() {
 
   return (
     <div className="flex text-center justify-center items-center mx-auto items-center">
-      {/* <LineChart
+      <LineChart
         width={500}
         height={250}
-        data={data}
+        data={[]}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
       >
         <Line type="natural" dataKey="weight" stroke="#7bb0b9" />
@@ -79,7 +52,7 @@ export default function Graph() {
         />
         <YAxis padding={{ top: 10, bottom: 10 }} tick={{ fontSize: 10 }} />
         <Tooltip />
-      </LineChart> */}
+      </LineChart>
     </div>
   );
 }
