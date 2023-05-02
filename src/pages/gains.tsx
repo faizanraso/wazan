@@ -10,6 +10,7 @@ import Graph from "@/components/Graph";
 import PullBodyWeightData from "@/functions/PullBodyWeightData";
 import PullBenchData from "@/functions/PullBenchData";
 import PullSquatData from "@/functions/PullSquatData";
+import PullDeadliftData from "@/functions/PullDeadliftData";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,7 @@ export default function Dashboard() {
   const bodyWeightData = PullBodyWeightData();
   const benchData = PullBenchData();
   const squatData = PullSquatData();
-  // const deadliftData = PullDeadliftData();
+  const deadliftData = PullDeadliftData();
 
   const session = useSession();
   const { push } = useRouter();
@@ -69,6 +70,12 @@ export default function Dashboard() {
                 Squat PR
               </h2>
               <Graph data={squatData} />
+            </div>
+            <div className="deadlift-PR-div text-center">
+              <h2 className="text-black text-xl font-semibold py-5">
+                Deadlift PR
+              </h2>
+              <Graph data={deadliftData} />
             </div>
           </section>
         </div>
