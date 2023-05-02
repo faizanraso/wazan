@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import WeeklyWorkouts from "@/components/WeeklyWorkouts";
 import Graph from "@/components/Graph";
 
 const inter = Inter({ subsets: ["latin"] });

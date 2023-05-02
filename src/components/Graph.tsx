@@ -8,40 +8,36 @@ import {
   Tooltip,
 } from "recharts";
 import { Inter } from "next/font/google";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Graph() {
-  const data = [
-    {
-      name: "Page A",
-      data: 4000,
-    },
-    {
-      name: "Page B",
-      data: 3000,
-    },
-    {
-      name: "Page C",
-      data: 2000,
-    },
-    {
-      name: "Page D",
-      data: 2780,
-    },
-    {
-      name: "Page E",
-      data: 1890,
-    },
-    {
-      name: "Page F",
-      data: 2390,
-    },
-    {
-      name: "Page G",
-      data: 3490,
-    },
-  ];
+  const session = useSession();
+  const supabase = useSupabaseClient();
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    fetchGraphData();
+  }, []);
+
+  async function fetchGraphData() {
+    const user = (await supabase.auth.getUser()).data.user;
+    const { data: bodyWeightData, error } = await supabase
+      .from("body_weight_data")
+      .select("date, weight")
+      .eq("user_id", user!.id)
+      .order("date", { ascending: true });
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    console.log("Body weight data:", bodyWeightData);
+
+    return bodyWeightData;
+  }
 
   function CustomizedAxisTick(props: any) {
     {
@@ -68,22 +64,22 @@ export default function Graph() {
 
   return (
     <div className="flex text-center justify-center items-center mx-auto items-center">
-      <LineChart
+      {/* <LineChart
         width={500}
         height={250}
         data={data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
       >
-        <Line type="natural" dataKey="data" stroke="#7bb0b9" />
+        <Line type="natural" dataKey="weight" stroke="#7bb0b9" />
         <CartesianGrid stroke="#f5f5f5" strokeDasharray="2 2" />
         <XAxis
-          dataKey="name"
+          dataKey="date"
           padding={{ left: 10, right: 10 }}
           tick={CustomizedAxisTick}
         />
         <YAxis padding={{ top: 10, bottom: 10 }} tick={{ fontSize: 10 }} />
         <Tooltip />
-      </LineChart>
+      </LineChart> */}
     </div>
   );
 }
