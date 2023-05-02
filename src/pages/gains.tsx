@@ -44,12 +44,18 @@ export default function Dashboard() {
       <main className={inter.className}>
         <div className="flex flex-col px-4 py-3 mt-20 sm:px-6 lg:px-8 mx-auto">
           <section className="text-center">
-            {/* <h1 className="text-black text-2xl font-bold pb-8">
-              My Gains{" "}
-              <span aria-hidden="true" role="img">
-                🏋️‍♂️
-              </span>
-            </h1> */}
+            <div className="px-1 text-xs font-medium p-3 float-right">
+              <button className="flex items-center p-2 justify-center text-indigo-100 transition-colors duration-150 bg-cyan-700 rounded-lg focus:shadow-outline hover:bg-cyan-800">
+                Add Data&nbsp;
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                    clip-rule="evenodd"
+                    fill-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </div>
             {/* <WeeklyWorkouts /> */}
           </section>
           <section className="flex md:grid md:grid-cols-2 gap-4 justify-center items-center my-auto">
