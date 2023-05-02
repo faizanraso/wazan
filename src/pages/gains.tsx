@@ -3,7 +3,6 @@ import Head from "next/head";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
-
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -35,7 +34,7 @@ export default function Dashboard() {
   function openModal() {
     setModalIsOpen(true);
   }
-  
+
   function closeModal() {
     setModalIsOpen(false);
   }
@@ -53,7 +52,7 @@ export default function Dashboard() {
       </Head>
       <Header />
       <main className={inter.className}>
-        <div className="flex flex-col px-4 py-3 mt-20 sm:px-6 lg:px-8 mx-auto">
+        <div className="flex flex-col px-4 py-5 md:py-3 mt-20 sm:px-6 lg:px-8 mx-auto">
           <section className="text-center">
             <div className="px-1 text-xs font-medium p-3 float-right">
               <button
@@ -73,7 +72,7 @@ export default function Dashboard() {
             </div>
             {/* <WeeklyWorkouts /> */}
           </section>
-          <section className="flex md:grid md:grid-cols-2 gap-4 justify-center items-center my-auto">
+          <section className="flex flex-col md:grid md:grid-cols-2 gap-4 justify-center items-center my-auto">
             <div className="body-weight-div text-center rounded-xl bg-white p-3 border border-2 border-gray-100">
               <h2 className="text-xs text-black text-xl font-semibold py-5">
                 Body Weight

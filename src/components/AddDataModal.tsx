@@ -15,12 +15,15 @@ export default function AddDataModal(props: any) {
 
   return (
     <Modal
-      isOpen={props.modalIsOpen}
-      // onAfterOpen={afterOpenModal}
-      onRequestClose={props.closeModal}
+      isOpen={props.isOpen}
+      onRequestClose={props.onRequestClose}
       style={customStyles}
       contentLabel="Example Modal"
       ariaHideApp={false}
-    ></Modal>
+    >
+      <div className="flex text-sm">
+        <h2>Add Data</h2>
+      </div>
+    </Modal>
   );
 }
