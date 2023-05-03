@@ -61,7 +61,12 @@ export default function Graph(props: any) {
         data={props.data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
       >
-        <Line type="natural" dataKey="weight" stroke="#7bb0b9" />
+        <Line
+          type="monotone"
+          dataKey="weight"
+          stroke="#7bb0b9"
+          strokeWidth={2}
+        />
         <CartesianGrid stroke="#f5f5f5" strokeDasharray="2 2" />
         <XAxis
           dataKey="date"
