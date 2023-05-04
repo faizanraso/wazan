@@ -44,6 +44,39 @@ export default function DeleteDataModal(props: any) {
     },
   };
 
+  async function deleteBodyWeightEntry(user_id: string | undefined, date: any) {
+    const { data, error } = await supabase
+      .from("body_weight_data")
+      .delete()
+      .eq("user_id", user_id)
+      .eq("date", date);
+    if (error) {
+      toast.error(
+        "Looks like theres no record for your body weight on that day",
+        errorToastOptions
+      );
+    }
+  }
+
+  async function deletePREntry(
+    user_id: string | undefined,
+    date: any,
+    exercise: string
+  ) {
+    const { data, error } = await supabase
+      .from("pr_data")
+      .delete()
+      .eq("user_id", user_id)
+      .eq("date", date)
+      .eq("exercise", exercise);
+    if (error) {
+      toast.error(
+        "Looks like theres no record for a " + { exercise } + "PR on that day",
+        errorToastOptions
+      );
+    }
+  }
+
   async function deleteData(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (date === "") {
@@ -59,62 +92,20 @@ export default function DeleteDataModal(props: any) {
         "You must select at least one record to delete!",
         errorToastOptions
       );
+      return;
     } else {
       const user_id = (await supabase.auth.getUser()).data.user?.id;
       if (deleteBodyWeight) {
-        const { data, error } = await supabase
-          .from("body_weight_data")
-          .delete()
-          .eq("user_id", user_id)
-          .eq("date", date);
-        if (error) {
-          toast.error(
-            "Looks like theres no record for your body weight on that day",
-            errorToastOptions
-          );
-        }
+        deleteBodyWeightEntry(user_id, date);
       }
       if (deleteBench) {
-        const { data, error } = await supabase
-          .from("pr_data")
-          .delete()
-          .eq("user_id", user_id)
-          .eq("date", date)
-          .eq("exercise", "bench");
-        if (error) {
-          toast.error(
-            "Looks like theres no record for a Bench PR on that day",
-            errorToastOptions
-          );
-        }
+        deletePREntry(user_id, date, "bench");
       }
       if (deleteSquat) {
-        const { data, error } = await supabase
-          .from("pr_data")
-          .delete()
-          .eq("user_id", user_id)
-          .eq("date", date)
-          .eq("exercise", "squat");
-        if (error) {
-          toast.error(
-            "Looks like theres no record for a Bench PR on that day",
-            errorToastOptions
-          );
-        }
+        deletePREntry(user_id, date, "squat");
       }
       if (deleteDeadlift) {
-        const { data, error } = await supabase
-          .from("pr_data")
-          .delete()
-          .eq("user_id", user_id)
-          .eq("date", date)
-          .eq("exercise", "deadlift");
-        if (error) {
-          toast.error(
-            "Looks like theres no record for a Bench PR on that day",
-            errorToastOptions
-          );
-        }
+        deletePREntry(user_id, date, "deadlift");
       }
       document.location.reload();
     }
