@@ -21,7 +21,13 @@ export default function DeleteDataModal(props: any) {
     },
   };
 
-  async function deleteData(e) {}
+  async function deleteData(e) {
+    if(date === ""){
+      // return toast 
+    } else if (
+      
+    )
+  }
 
   return (
     <div className={inter.className}>
