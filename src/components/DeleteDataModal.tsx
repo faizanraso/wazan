@@ -5,11 +5,17 @@ import { ToastContainer, toast } from "react-toastify";
 
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
+import { error } from "console";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function DeleteDataModal(props: any) {
   const [date, setDate] = useState<string>("");
+  const [deleteBodyWeight, setDeleteBodyWeight] = useState<boolean>(false);
+  const [deleteBench, setDeleteBench] = useState<boolean>(false);
+  const [deleteSquat, setDeleteSquat] = useState<boolean>(false);
+  const [deleteDeadlift, setDeleteDeadlift] = useState<boolean>(false);
+
   const supabase = useSupabaseClient();
 
   const customStyles = {
@@ -36,6 +42,33 @@ export default function DeleteDataModal(props: any) {
         progress: undefined,
         theme: "light",
       });
+      return;
+    } else if (
+      deleteBodyWeight === false &&
+      deleteBench === false &&
+      deleteSquat === false &&
+      deleteDeadlift === false
+    ) {
+      toast.error("You must select at least one record to delete!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      const user_id = (await supabase.auth.getUser()).data.user?.id;
+      if (deleteBodyWeight) {
+        const { data, error } = await supabase
+          .from("body_weight_data")
+          .delete()
+          .eq("user_id", user_id)
+          .eq("date", date);
+        if (error) console.log(error);
+      }
     }
   }
 
@@ -65,7 +98,7 @@ export default function DeleteDataModal(props: any) {
                   }}
                 />
               </div>
-              <div className="select-menu flex flex-col items-center mb-4">
+              <div className="select-menu flex flex-col items-center mb-4 pb-3">
                 <h3 className="my-4 text-xs font-medium text-red-700">
                   Select the records you wish to delete 🗑️
                 </h3>
@@ -73,13 +106,13 @@ export default function DeleteDataModal(props: any) {
                   <li className="w-full border-b border-gray-200 rounded-t-lg ">
                     <div className="flex items-center pl-3">
                       <input
-                        id="vue-checkbox"
+                        id="bw-checkbox"
                         type="checkbox"
-                        value=""
+                        onChange={(e) => setDeleteBodyWeight(e.target.checked)}
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 0"
                       />
                       <label
-                        htmlFor="vue-checkbox"
+                        htmlFor="bw-checkbox"
                         className="w-full py-3 ml-2 text-sm font-medium text-gray-900"
                       >
                         Body Weight
@@ -89,13 +122,13 @@ export default function DeleteDataModal(props: any) {
                   <li className="w-full border-b border-gray-200 rounded-t-lg">
                     <div className="flex items-center pl-3">
                       <input
-                        id="react-checkbox"
+                        id="benc-checkbox"
                         type="checkbox"
-                        value=""
+                        onChange={(e) => setDeleteBench(e.target.checked)}
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
                       />
                       <label
-                        htmlFor="react-checkbox"
+                        htmlFor="bench-checkbox"
                         className="w-full py-3 ml-2 text-sm font-medium text-gray-900"
                       >
                         Bench PR
@@ -105,13 +138,13 @@ export default function DeleteDataModal(props: any) {
                   <li className="w-full border-b border-gray-200 rounded-t-lg ">
                     <div className="flex items-center pl-3">
                       <input
-                        id="angular-checkbox"
+                        id="squat-checkbox"
                         type="checkbox"
-                        value=""
+                        onChange={(e) => setDeleteSquat(e.target.checked)}
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
                       />
                       <label
-                        htmlFor="angular-checkbox"
+                        htmlFor="squat-checkbox"
                         className="w-full py-3 ml-2 text-sm font-medium text-gray-900 "
                       >
                         Squat PR
@@ -121,13 +154,13 @@ export default function DeleteDataModal(props: any) {
                   <li className="w-full border-b border-gray-200 rounded-t-lg">
                     <div className="flex items-center pl-3">
                       <input
-                        id="laravel-checkbox"
+                        id="deadlift-checkbox"
                         type="checkbox"
-                        value=""
+                        onChange={(e) => setDeleteDeadlift(e.target.checked)}
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                       />
                       <label
-                        htmlFor="laravel-checkbox"
+                        htmlFor="deadlift-checkbox"
                         className="w-full py-3 ml-2 text-sm font-medium text-gray-900"
                       >
                         Deadlift PR
@@ -136,7 +169,23 @@ export default function DeleteDataModal(props: any) {
                   </li>
                 </ul>
               </div>
-              <div className="flex items-center"></div>
+              <div className="flex text-center items-center mx-auto justify-center">
+                <button
+                  onClick={(e) => deleteData(e)}
+                  className="flex items-center p-3 justify-center text-white text-xs transition-colors duration-150 bg-red-700 rounded-lg focus:shadow-outline hover:bg-red-800"
+                >
+                  Delete Data &nbsp;
+                  <svg
+                    className="w-4 h-4 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z" />
+                  </svg>
+                </button>
+              </div>
             </form>
           </div>
         </section>
