@@ -59,6 +59,64 @@ export default function AddDataModal(props: any) {
     theme: "light",
   };
 
+  async function upsertBodyWeightData(
+    user_id: string | undefined,
+    date: any,
+    weight: number
+  ) {
+    const { data, error } = await supabase
+      .from("body_weight_data")
+      .select("date, weight")
+      .eq("user_id", user_id)
+      .eq("date", date);
+    if (error) console.log(error);
+    if (data?.length! > 0) {
+      const { data, error } = await supabase
+        .from("body_weight_data")
+        .update({ weight: weight })
+        .eq("user_id", user_id)
+        .eq("date", date);
+      if (error) console.log(error);
+    } else {
+      const { data, error } = await supabase
+        .from("body_weight_data")
+        .insert({ weight: weight, date: date, user_id: user_id });
+      if (error) console.log(error);
+    }
+  }
+
+  async function upsertPRData(
+    user_id: string | undefined,
+    date: any,
+    weight: number,
+    exercise: string
+  ) {
+    const { data, error } = await supabase
+      .from("pr_data")
+      .select("date, weight")
+      .eq("user_id", user_id)
+      .eq("date", date)
+      .eq("exercise", exercise);
+    if (error) console.log(error);
+    if (data?.length! > 0) {
+      const { data, error } = await supabase
+        .from("pr_data")
+        .update({ weight: weight })
+        .eq("user_id", user_id)
+        .eq("date", date)
+        .eq("exercise", exercise);
+      if (error) console.log(error);
+    } else {
+      const { data, error } = await supabase.from("pr_data").insert({
+        weight: weight,
+        date: date,
+        user_id: user_id,
+        exercise: exercise,
+      });
+      if (error) console.log(error);
+    }
+  }
+
   async function uploadData(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
@@ -73,106 +131,20 @@ export default function AddDataModal(props: any) {
       deadliftWeight == undefined
     ) {
       toast.error("You can't leave all the records blank!", errorToastOptions);
+      return;
     } else {
       const user_id = (await supabase.auth.getUser()).data.user?.id;
       if (bodyWeight) {
-        const { data, error } = await supabase
-          .from("body_weight_data")
-          .select("date, weight")
-          .eq("user_id", user_id)
-          .eq("date", date);
-        if (error) console.log(error);
-        if (data?.length! > 0) {
-          const { data, error } = await supabase
-            .from("body_weight_data")
-            .update({ weight: bodyWeight })
-            .eq("user_id", user_id)
-            .eq("date", date);
-          if (error) console.log(error);
-        } else {
-          const { data, error } = await supabase
-            .from("body_weight_data")
-            .insert({ weight: bodyWeight, date: date, user_id: user_id });
-          if (error) console.log(error);
-        }
+        await upsertBodyWeightData(user_id, date, bodyWeight);
       }
       if (benchWeight) {
-        const { data, error } = await supabase
-          .from("pr_data")
-          .select("date, weight")
-          .eq("user_id", user_id)
-          .eq("date", date)
-          .eq("exercise", "bench");
-        if (error) console.log(error);
-        if (data?.length! > 0) {
-          const { data, error } = await supabase
-            .from("pr_data")
-            .update({ weight: benchWeight })
-            .eq("user_id", user_id)
-            .eq("date", date)
-            .eq("exercise", "bench");
-          if (error) console.log(error);
-        } else {
-          const { data, error } = await supabase.from("pr_data").insert({
-            weight: benchWeight,
-            date: date,
-            user_id: user_id,
-            exercise: "bench",
-          });
-          if (error) console.log(error);
-        }
+        await upsertPRData(user_id, date, benchWeight, "bench");
       }
       if (squatWeight) {
-        const { data, error } = await supabase
-          .from("pr_data")
-          .select("date, weight")
-          .eq("user_id", user_id)
-          .eq("date", date)
-          .eq("exercise", "squat");
-        if (error) console.log(error);
-        if (data?.length! > 0) {
-          const { data, error } = await supabase
-            .from("pr_data")
-            .update({ weight: squatWeight })
-            .eq("user_id", user_id)
-            .eq("date", date)
-            .eq("exercise", "squat");
-          if (error) console.log(error);
-        } else {
-          const { data, error } = await supabase.from("pr_data").insert({
-            weight: squatWeight,
-            date: date,
-            user_id: user_id,
-            exercise: "squat",
-          });
-          if (error) console.log(error);
-        }
+        await upsertPRData(user_id, date, squatWeight, "squat");
       }
       if (deadliftWeight) {
-        const { data, error } = await supabase
-          .from("pr_data")
-          .select("date, weight")
-          .eq("user_id", user_id)
-          .eq("date", date)
-          .eq("exercise", "deadlift");
-        if (error) console.log(error);
-        if (data?.length! > 0) {
-          const { data, error } = await supabase
-            .from("pr_data")
-            .update({ weight: deadliftWeight })
-            .eq("user_id", user_id)
-            .eq("date", date)
-            .eq("exercise", "deadlift");
-          if (error) console.log(error);
-        } else {
-          const { data, error } = await supabase.from("pr_data").insert({
-            weight: deadliftWeight,
-            date: date,
-            user_id: user_id,
-            exercise: "deadlift",
-          });
-          if (error) console.log(error);
-        }
+        await upsertPRData(user_id, date, deadliftWeight, "deadlift");
       }
       document.location.reload();
     }
@@ -189,7 +161,7 @@ export default function AddDataModal(props: any) {
       >
         <section className="">
           <div className="p-8 text-center sm:p-10">
-            <p className="text-sm font-semibold uppercase tracking-widest text-sky-500">
+            <p className="text-sm font-semibold uppercase tracking-widest text-cyan-700">
               Add Data
             </p>
             <form className="mx-auto mb-0 mt-8 max-w-md space-y-4 text-xs">
@@ -245,7 +217,7 @@ export default function AddDataModal(props: any) {
                 <PoundsSVG />
               </div>
               <button
-                className="mt-8 inline-block w-3/4 rounded-lg bg-sky-500 py-4 text-sm font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-sky-600"
+                className="mt-8 inline-block w-3/4 rounded-lg bg-cyan-700 py-4 text-sm font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-cyan-800"
                 onClick={(e) => uploadData(e)}
               >
                 Add Data

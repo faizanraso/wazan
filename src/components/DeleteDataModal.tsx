@@ -86,16 +86,16 @@ export default function DeleteDataModal(props: any) {
     } else {
       const user_id = (await supabase.auth.getUser()).data.user?.id;
       if (deleteBodyWeight) {
-        deleteBodyWeightEntry(user_id, date);
+        await deleteBodyWeightEntry(user_id, date);
       }
       if (deleteBench) {
-        deletePREntry(user_id, date, "bench");
+        await deletePREntry(user_id, date, "bench");
       }
       if (deleteSquat) {
-        deletePREntry(user_id, date, "squat");
+        await deletePREntry(user_id, date, "squat");
       }
       if (deleteDeadlift) {
-        deletePREntry(user_id, date, "deadlift");
+        await deletePREntry(user_id, date, "deadlift");
       }
       document.location.reload();
     }
