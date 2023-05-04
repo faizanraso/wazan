@@ -1,14 +1,37 @@
 import React, { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Modal from "react-modal";
+import {
+  ToastContainer,
+  toast,
+  ToastOptions,
+  ToastPosition,
+} from "react-toastify";
 
 import { Inter } from "next/font/google";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function DeleteDataModal(props: any) {
   const [date, setDate] = useState<string>("");
+  const [deleteBodyWeight, setDeleteBodyWeight] = useState<boolean>(false);
+  const [deleteBench, setDeleteBench] = useState<boolean>(false);
+  const [deleteSquat, setDeleteSquat] = useState<boolean>(false);
+  const [deleteDeadlift, setDeleteDeadlift] = useState<boolean>(false);
+
   const supabase = useSupabaseClient();
+
+  const errorToastOptions: ToastOptions = {
+    position: "top-right" as ToastPosition,
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
 
   const customStyles = {
     content: {
@@ -21,7 +44,62 @@ export default function DeleteDataModal(props: any) {
     },
   };
 
-  async function deleteData(e) {}
+  async function deleteBodyWeightEntry(user_id: string | undefined, date: any) {
+    const { data, error } = await supabase
+      .from("body_weight_data")
+      .delete()
+      .eq("user_id", user_id)
+      .eq("date", date);
+    if (error) console.log(error);
+  }
+
+  async function deletePREntry(
+    user_id: string | undefined,
+    date: any,
+    exercise: string
+  ) {
+    const { data, error } = await supabase
+      .from("pr_data")
+      .delete()
+      .eq("user_id", user_id)
+      .eq("date", date)
+      .eq("exercise", exercise);
+    if (error) console.log(error);
+  }
+
+  async function deleteData(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (date === "") {
+      toast.error("Please enter a date 📅", errorToastOptions);
+      return;
+    } else if (
+      deleteBodyWeight === false &&
+      deleteBench === false &&
+      deleteSquat === false &&
+      deleteDeadlift === false
+    ) {
+      toast.error(
+        "You must select at least one record to delete!",
+        errorToastOptions
+      );
+      return;
+    } else {
+      const user_id = (await supabase.auth.getUser()).data.user?.id;
+      if (deleteBodyWeight) {
+        deleteBodyWeightEntry(user_id, date);
+      }
+      if (deleteBench) {
+        deletePREntry(user_id, date, "bench");
+      }
+      if (deleteSquat) {
+        deletePREntry(user_id, date, "squat");
+      }
+      if (deleteDeadlift) {
+        deletePREntry(user_id, date, "deadlift");
+      }
+      document.location.reload();
+    }
+  }
 
   return (
     <div className={inter.className}>
@@ -34,8 +112,8 @@ export default function DeleteDataModal(props: any) {
       >
         <section className="">
           <div className="p-8 text-center sm:p-10">
-            <p className="text-sm font-semibold uppercase tracking-widest text-sky-500">
-              Add Data
+            <p className="text-sm font-semibold uppercase tracking-widest text-red-500">
+              Delete Data
             </p>
             <form className="mx-auto mb-0 mt-8 max-w-md space-y-4">
               <div className="">
@@ -49,36 +127,99 @@ export default function DeleteDataModal(props: any) {
                   }}
                 />
               </div>
-              <div className="relative">
-                <input
-                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                  placeholder="Body Weight"
-                  onChange={(e) => {}}
-                />
-
-                <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4 text-gray-400"
-                    height="1em"
-                    width="1em"
-                    {...props}
-                  >
-                    <path d="M12 3a4 4 0 014 4c0 .73-.19 1.41-.54 2H18c.95 0 1.75.67 1.95 1.56C21.96 18.57 22 18.78 22 19a2 2 0 01-2 2H4a2 2 0 01-2-2c0-.22.04-.43 2.05-8.44C4.25 9.67 5.05 9 6 9h2.54A3.89 3.89 0 018 7a4 4 0 014-4m0 2a2 2 0 00-2 2 2 2 0 002 2 2 2 0 002-2 2 2 0 00-2-2m-6 6v8h5v-2H8v-6H6m7 0v8h3c1.11 0 2-.89 2-2v-.5c0-.57-.25-1.12-.68-1.5.43-.38.68-.93.68-1.5V13c0-1.11-.89-2-2-2h-3m2 2h1v1h-1v-1m0 3h1v1h-1v-1z" />
-                  </svg>
-                </span>
+              <div className="select-menu flex flex-col items-center mb-4 pb-3">
+                <h3 className="my-4 text-xs font-medium text-red-700">
+                  Select the records you wish to delete 🗑️
+                </h3>
+                <ul className="w-48 text-sm font-medium text-black bg-white border border-gray-200 rounded-lg">
+                  <li className="w-full border-b border-gray-200 rounded-t-lg ">
+                    <div className="flex items-center pl-3">
+                      <input
+                        id="bw-checkbox"
+                        type="checkbox"
+                        onChange={(e) => setDeleteBodyWeight(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 0"
+                      />
+                      <label
+                        htmlFor="bw-checkbox"
+                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900"
+                      >
+                        Body Weight
+                      </label>
+                    </div>
+                  </li>
+                  <li className="w-full border-b border-gray-200 rounded-t-lg">
+                    <div className="flex items-center pl-3">
+                      <input
+                        id="benc-checkbox"
+                        type="checkbox"
+                        onChange={(e) => setDeleteBench(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
+                      />
+                      <label
+                        htmlFor="bench-checkbox"
+                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900"
+                      >
+                        Bench PR
+                      </label>
+                    </div>
+                  </li>
+                  <li className="w-full border-b border-gray-200 rounded-t-lg ">
+                    <div className="flex items-center pl-3">
+                      <input
+                        id="squat-checkbox"
+                        type="checkbox"
+                        onChange={(e) => setDeleteSquat(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
+                      />
+                      <label
+                        htmlFor="squat-checkbox"
+                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 "
+                      >
+                        Squat PR
+                      </label>
+                    </div>
+                  </li>
+                  <li className="w-full border-b border-gray-200 rounded-t-lg">
+                    <div className="flex items-center pl-3">
+                      <input
+                        id="deadlift-checkbox"
+                        type="checkbox"
+                        onChange={(e) => setDeleteDeadlift(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                      />
+                      <label
+                        htmlFor="deadlift-checkbox"
+                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900"
+                      >
+                        Deadlift PR
+                      </label>
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <button
-                className="mt-8 inline-block w-3/4 rounded-full bg-sky-600 py-4 text-sm font-bold text-white shadow-xl"
-                onClick={(e) => deleteData(e)}
-              >
-                Add Data
-              </button>
+              <div className="flex text-center items-center mx-auto justify-center">
+                <button
+                  onClick={(e) => deleteData(e)}
+                  className="flex items-center p-3 justify-center text-white text-xs transition-colors duration-150 bg-red-700 rounded-lg focus:shadow-outline hover:bg-red-800"
+                >
+                  Delete Data &nbsp;
+                  <svg
+                    className="w-4 h-4 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z" />
+                  </svg>
+                </button>
+              </div>
             </form>
           </div>
         </section>
       </Modal>
+      <ToastContainer />
     </div>
   );
 }
