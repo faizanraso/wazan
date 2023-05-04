@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Modal from "react-modal";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast, ToastOptions } from "react-toastify";
 
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
-import { error } from "console";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -67,8 +66,64 @@ export default function DeleteDataModal(props: any) {
           .delete()
           .eq("user_id", user_id)
           .eq("date", date);
+        if (error) {
+          toast.error(
+            "Looks like theres no record for your body weight on that day",
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            }
+          );
+        }
+      }
+      if (deleteBench) {
+        const { data, error } = await supabase
+          .from("pr_data")
+          .delete()
+          .eq("user_id", user_id)
+          .eq("date", date)
+          .eq("exercise", "bench");
+        if (error) {
+          toast.error(
+            "Looks like theres no record for a Bench PR on that day",
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            }
+          );
+        }
+      }
+      if (deleteSquat) {
+        const { data, error } = await supabase
+          .from("pr_data")
+          .delete()
+          .eq("user_id", user_id)
+          .eq("date", date)
+          .eq("exercise", "squat");
         if (error) console.log(error);
       }
+      if (deleteDeadlift) {
+        const { data, error } = await supabase
+          .from("pr_data")
+          .delete()
+          .eq("user_id", user_id)
+          .eq("date", date)
+          .eq("exercise", "deadlift");
+        if (error) console.log(error);
+      }
+      document.location.reload();
     }
   }
 
