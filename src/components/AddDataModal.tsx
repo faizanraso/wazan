@@ -41,7 +41,7 @@ export default function AddDataModal(props: any) {
           .select("date, weight")
           .eq("user_id", user_id)
           .eq("date", date);
-
+        if (error) console.log(error);
         if (data?.length! > 0) {
           const { data, error } = await supabase
             .from("body_weight_data")
@@ -54,9 +54,35 @@ export default function AddDataModal(props: any) {
             .from("body_weight_data")
             .insert({ weight: bodyWeight, date: date, user_id: user_id });
         }
+        if (error) console.log(error);
       }
       if (benchWeight) {
-        // upload bench
+        const { data, error } = await supabase
+          .from("pr_data")
+          .select("date, weight")
+          .eq("user_id", user_id)
+          .eq("date", date)
+          .eq("exercise", "bench");
+        if (error) console.log(error);
+        if (data?.length! > 0) {
+          const { data, error } = await supabase
+            .from("pr_data")
+            .update({ weight: bodyWeight })
+            .eq("user_id", user_id)
+            .eq("date", date)
+            .eq("exercise", "bench");
+          if (error) console.log(error);
+        } else {
+          const { data, error } = await supabase
+            .from("body_weight_data")
+            .insert({
+              weight: bodyWeight,
+              date: date,
+              user_id: user_id,
+              exercise: "bench",
+            });
+        }
+        if (error) console.log(error);
       }
       if (squatWeight) {
         // upload bench
