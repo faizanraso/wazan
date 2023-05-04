@@ -23,7 +23,8 @@ export default function DeleteDataModal(props: any) {
     },
   };
 
-  async function deleteData(e) {
+  async function deleteData(e: { preventDefault: () => void }) {
+    e.preventDefault();
     if (date === "") {
       toast.error("Please enter a date 📅", {
         position: "top-right",
