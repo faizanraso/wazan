@@ -22,7 +22,7 @@ export default function DeleteDataModal(props: any) {
 
   const supabase = useSupabaseClient();
 
-  const toastOptions: ToastOptions = {
+  const errorToastOptions: ToastOptions = {
     position: "top-right" as ToastPosition,
     autoClose: 5000,
     hideProgressBar: false,
@@ -47,7 +47,7 @@ export default function DeleteDataModal(props: any) {
   async function deleteData(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (date === "") {
-      toast.error("Please enter a date 📅", toastOptions);
+      toast.error("Please enter a date 📅", errorToastOptions);
       return;
     } else if (
       deleteBodyWeight === false &&
@@ -57,7 +57,7 @@ export default function DeleteDataModal(props: any) {
     ) {
       toast.error(
         "You must select at least one record to delete!",
-        toastOptions
+        errorToastOptions
       );
     } else {
       const user_id = (await supabase.auth.getUser()).data.user?.id;
@@ -70,7 +70,7 @@ export default function DeleteDataModal(props: any) {
         if (error) {
           toast.error(
             "Looks like theres no record for your body weight on that day",
-            toastOptions
+            errorToastOptions
           );
         }
       }
@@ -84,7 +84,7 @@ export default function DeleteDataModal(props: any) {
         if (error) {
           toast.error(
             "Looks like theres no record for a Bench PR on that day",
-            toastOptions
+            errorToastOptions
           );
         }
       }
@@ -98,7 +98,7 @@ export default function DeleteDataModal(props: any) {
         if (error) {
           toast.error(
             "Looks like theres no record for a Bench PR on that day",
-            toastOptions
+            errorToastOptions
           );
         }
       }
@@ -112,7 +112,7 @@ export default function DeleteDataModal(props: any) {
         if (error) {
           toast.error(
             "Looks like theres no record for a Bench PR on that day",
-            toastOptions
+            errorToastOptions
           );
         }
       }
