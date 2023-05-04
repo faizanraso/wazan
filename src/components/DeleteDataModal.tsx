@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Modal from "react-modal";
-import { ToastContainer, toast, ToastOptions } from "react-toastify";
+import {
+  ToastContainer,
+  toast,
+  ToastOptions,
+  ToastPosition,
+} from "react-toastify";
 
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +22,17 @@ export default function DeleteDataModal(props: any) {
 
   const supabase = useSupabaseClient();
 
+  const toastOptions: ToastOptions = {
+    position: "top-right" as ToastPosition,
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
+
   const customStyles = {
     content: {
       top: "50%",
@@ -31,16 +47,7 @@ export default function DeleteDataModal(props: any) {
   async function deleteData(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (date === "") {
-      toast.error("Please enter a date 📅", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Please enter a date 📅", toastOptions);
       return;
     } else if (
       deleteBodyWeight === false &&
@@ -48,16 +55,10 @@ export default function DeleteDataModal(props: any) {
       deleteSquat === false &&
       deleteDeadlift === false
     ) {
-      toast.error("You must select at least one record to delete!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error(
+        "You must select at least one record to delete!",
+        toastOptions
+      );
     } else {
       const user_id = (await supabase.auth.getUser()).data.user?.id;
       if (deleteBodyWeight) {
@@ -69,16 +70,7 @@ export default function DeleteDataModal(props: any) {
         if (error) {
           toast.error(
             "Looks like theres no record for your body weight on that day",
-            {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            }
+            toastOptions
           );
         }
       }
@@ -92,16 +84,7 @@ export default function DeleteDataModal(props: any) {
         if (error) {
           toast.error(
             "Looks like theres no record for a Bench PR on that day",
-            {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            }
+            toastOptions
           );
         }
       }
@@ -112,7 +95,12 @@ export default function DeleteDataModal(props: any) {
           .eq("user_id", user_id)
           .eq("date", date)
           .eq("exercise", "squat");
-        if (error) console.log(error);
+        if (error) {
+          toast.error(
+            "Looks like theres no record for a Bench PR on that day",
+            toastOptions
+          );
+        }
       }
       if (deleteDeadlift) {
         const { data, error } = await supabase
@@ -121,7 +109,12 @@ export default function DeleteDataModal(props: any) {
           .eq("user_id", user_id)
           .eq("date", date)
           .eq("exercise", "deadlift");
-        if (error) console.log(error);
+        if (error) {
+          toast.error(
+            "Looks like theres no record for a Bench PR on that day",
+            toastOptions
+          );
+        }
       }
       document.location.reload();
     }
