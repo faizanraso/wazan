@@ -16,7 +16,6 @@ export default function Graph(props: any) {
   function CustomizedAxisTick(props: any) {
     {
       const { x, y, stroke, payload } = props;
-
       return (
         <g transform={`translate(${x},${y})`}>
           <text
@@ -27,7 +26,7 @@ export default function Graph(props: any) {
             textAnchor="end"
             fill="#666"
             transform="rotate(-35)"
-            fontSize={5}
+            fontSize={0}
           >
             {payload.value}
           </text>

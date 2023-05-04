@@ -25,7 +25,10 @@ export default function AddDataModal(props: any) {
     },
   };
 
-  async function uploadData() {
+  async function uploadData(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    e.preventDefault();
     if (
       bodyWeight == undefined &&
       benchWeight == undefined &&
@@ -53,8 +56,8 @@ export default function AddDataModal(props: any) {
           const { data, error } = await supabase
             .from("body_weight_data")
             .insert({ weight: bodyWeight, date: date, user_id: user_id });
+          if (error) console.log(error);
         }
-        if (error) console.log(error);
       }
       if (benchWeight) {
         const { data, error } = await supabase
@@ -67,30 +70,75 @@ export default function AddDataModal(props: any) {
         if (data?.length! > 0) {
           const { data, error } = await supabase
             .from("pr_data")
-            .update({ weight: bodyWeight })
+            .update({ weight: benchWeight })
             .eq("user_id", user_id)
             .eq("date", date)
             .eq("exercise", "bench");
           if (error) console.log(error);
         } else {
-          const { data, error } = await supabase
-            .from("body_weight_data")
-            .insert({
-              weight: bodyWeight,
-              date: date,
-              user_id: user_id,
-              exercise: "bench",
-            });
+          const { data, error } = await supabase.from("pr_data").insert({
+            weight: benchWeight,
+            date: date,
+            user_id: user_id,
+            exercise: "bench",
+          });
+          if (error) console.log(error);
         }
-        if (error) console.log(error);
       }
       if (squatWeight) {
-        // upload bench
+        const { data, error } = await supabase
+          .from("pr_data")
+          .select("date, weight")
+          .eq("user_id", user_id)
+          .eq("date", date)
+          .eq("exercise", "squat");
+        if (error) console.log(error);
+        if (data?.length! > 0) {
+          const { data, error } = await supabase
+            .from("pr_data")
+            .update({ weight: squatWeight })
+            .eq("user_id", user_id)
+            .eq("date", date)
+            .eq("exercise", "squat");
+          if (error) console.log(error);
+        } else {
+          const { data, error } = await supabase.from("pr_data").insert({
+            weight: squatWeight,
+            date: date,
+            user_id: user_id,
+            exercise: "squat",
+          });
+          if (error) console.log(error);
+        }
       }
       if (deadliftWeight) {
-        // upload bench
+        const { data, error } = await supabase
+          .from("pr_data")
+          .select("date, weight")
+          .eq("user_id", user_id)
+          .eq("date", date)
+          .eq("exercise", "deadlift");
+        if (error) console.log(error);
+        if (data?.length! > 0) {
+          const { data, error } = await supabase
+            .from("pr_data")
+            .update({ weight: deadliftWeight })
+            .eq("user_id", user_id)
+            .eq("date", date)
+            .eq("exercise", "deadlift");
+          if (error) console.log(error);
+        } else {
+          const { data, error } = await supabase.from("pr_data").insert({
+            weight: deadliftWeight,
+            date: date,
+            user_id: user_id,
+            exercise: "deadlift",
+          });
+          if (error) console.log(error);
+        }
       }
     }
+    document.location.reload();
   }
 
   return (
@@ -107,10 +155,7 @@ export default function AddDataModal(props: any) {
             <p className="text-sm font-semibold uppercase tracking-widest text-sky-500">
               Add Data
             </p>
-            <form
-              className="mx-auto mb-0 mt-8 max-w-md space-y-4"
-              onSubmit={uploadData}
-            >
+            <form className="mx-auto mb-0 mt-8 max-w-md space-y-4">
               <div className="">
                 <input
                   id="date-picker"
@@ -212,7 +257,7 @@ export default function AddDataModal(props: any) {
               </div>
               <button
                 className="mt-8 inline-block w-3/4 rounded-full bg-sky-600 py-4 text-sm font-bold text-white shadow-xl"
-                type="submit"
+                onClick={(e) => uploadData(e)}
               >
                 Add Data
               </button>
