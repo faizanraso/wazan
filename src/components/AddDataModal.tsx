@@ -42,7 +42,7 @@ export default function AddDataModal(props: any) {
           .eq("user_id", user_id)
           .eq("date", date);
 
-        if (data) {
+        if (data?.length! > 0) {
           const { data, error } = await supabase
             .from("body_weight_data")
             .update({ weight: bodyWeight })
@@ -191,12 +191,6 @@ export default function AddDataModal(props: any) {
                 Add Data
               </button>
             </form>
-            <button
-              className="mt-8 inline-block w-3/4 rounded-full bg-sky-600 py-4 text-sm font-bold text-white shadow-xl"
-              onClick={uploadData}
-            >
-              Add Data
-            </button>
           </div>
         </section>
       </Modal>
