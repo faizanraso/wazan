@@ -50,12 +50,7 @@ export default function DeleteDataModal(props: any) {
       .delete()
       .eq("user_id", user_id)
       .eq("date", date);
-    if (error) {
-      toast.error(
-        "Looks like theres no record for your body weight on that day",
-        errorToastOptions
-      );
-    }
+    if (error) console.log(error);
   }
 
   async function deletePREntry(
@@ -69,12 +64,7 @@ export default function DeleteDataModal(props: any) {
       .eq("user_id", user_id)
       .eq("date", date)
       .eq("exercise", exercise);
-    if (error) {
-      toast.error(
-        "Looks like theres no record for a " + { exercise } + "PR on that day",
-        errorToastOptions
-      );
-    }
+    if (error) console.log(error);
   }
 
   async function deleteData(e: { preventDefault: () => void }) {
