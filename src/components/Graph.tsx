@@ -16,7 +16,6 @@ export default function Graph(props: any) {
   function CustomizedAxisTick(props: any) {
     {
       const { x, y, stroke, payload } = props;
-
       return (
         <g transform={`translate(${x},${y})`}>
           <text
@@ -27,7 +26,7 @@ export default function Graph(props: any) {
             textAnchor="end"
             fill="#666"
             transform="rotate(-35)"
-            fontSize={5}
+            fontSize={0}
           >
             {payload.value}
           </text>
@@ -61,7 +60,12 @@ export default function Graph(props: any) {
         data={props.data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
       >
-        <Line type="natural" dataKey="weight" stroke="#7bb0b9" />
+        <Line
+          type="monotone"
+          dataKey="weight"
+          stroke="#7bb0b9"
+          strokeWidth={2}
+        />
         <CartesianGrid stroke="#f5f5f5" strokeDasharray="2 2" />
         <XAxis
           dataKey="date"
