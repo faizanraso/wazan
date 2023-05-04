@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import React, { useState } from "react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Modal from "react-modal";
 
 import { Inter } from "next/font/google";
@@ -8,10 +8,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function DeleteDataModal(props: any) {
   const [date, setDate] = useState<string>("");
-  const [bodyWeight, setBodyWeight] = useState<boolean>();
-  const [benchWeight, setBenchWeight] = useState<boolean>();
-  const [squatWeight, setSquatWeight] = useState<boolean>();
-  const [deadliftWeight, setDeadliftWeight] = useState<boolean>();
   const supabase = useSupabaseClient();
 
   const customStyles = {
@@ -57,9 +53,7 @@ export default function DeleteDataModal(props: any) {
                 <input
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Body Weight"
-                  onChange={(e) => {
-                    setBodyWeight(Number(e.target.value));
-                  }}
+                  onChange={(e) => {}}
                 />
 
                 <span className="absolute inset-y-0 end-0 grid place-content-center px-4">

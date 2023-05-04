@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { ToastContainer, toast } from "react-toastify";
 
 import { Inter } from "next/font/google";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,13 +31,34 @@ export default function AddDataModal(props: any) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     e.preventDefault();
-    if (
+    if (date === "") {
+      toast.error("Please enter a date 📅", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    } else if (
       bodyWeight == undefined &&
       benchWeight == undefined &&
       squatWeight == undefined &&
       deadliftWeight == undefined
     ) {
-      // return toaster
+      toast.error("You can't leave all the records blank!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
       const user_id = (await supabase.auth.getUser()).data.user?.id;
       if (bodyWeight) {
@@ -137,8 +160,8 @@ export default function AddDataModal(props: any) {
           if (error) console.log(error);
         }
       }
+      document.location.reload();
     }
-    document.location.reload();
   }
 
   return (
@@ -265,6 +288,7 @@ export default function AddDataModal(props: any) {
           </div>
         </section>
       </Modal>
+      <ToastContainer />
     </div>
   );
 }

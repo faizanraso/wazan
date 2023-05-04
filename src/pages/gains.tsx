@@ -80,7 +80,7 @@ export default function Dashboard() {
               </button>
               <button
                 onClick={openDeleteDataModal}
-                className="flex items-center p-2 justify-center text-indigo-100 transition-colors duration-150 bg-red-700 rounded-lg focus:shadow-outline hover:bg-cyan-800"
+                className="flex items-center p-2 justify-center text-indigo-100 transition-colors duration-150 bg-red-700 rounded-lg focus:shadow-outline hover:bg-red-800"
               >
                 <svg
                   className="w-4 h-4 fill-current"
