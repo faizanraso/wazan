@@ -54,10 +54,20 @@ export default function DeleteDataModal(props: any) {
   async function deleteBodyWeightEntry(user_id: string | undefined, date: any) {
     const { data, error } = await supabase
       .from("body_weight_data")
-      .delete()
+      .select("weight")
       .eq("user_id", user_id)
       .eq("date", date);
-    if (error) console.log(error);
+    if (data !== null && data.length > 1) {
+      const { data, error } = await supabase
+        .from("body_weight_data")
+        .delete()
+        .eq("user_id", user_id)
+        .eq("date", date);
+      if (error) console.log(error);
+    } else {
+      return true;
+    }
+    return false;
   }
 
   async function deletePREntry(
@@ -80,10 +90,6 @@ export default function DeleteDataModal(props: any) {
         .eq("exercise", exercise);
       if (error) console.log(error);
     } else {
-      toast.error(
-        "Looks like there's no record for a " + exercise + " PR on that day",
-        errorToastOptions
-      );
       return true;
     }
     return false;
@@ -114,7 +120,7 @@ export default function DeleteDataModal(props: any) {
     } else {
       const user_id = (await supabase.auth.getUser()).data.user?.id;
       if (deleteBodyWeight) {
-        setMissingBodyWeightEntry(deleteBodyWeightEntry(user_id, date));
+        setMissingBodyWeightEntry(await deleteBodyWeightEntry(user_id, date));
       }
       if (deleteBench) {
         setMissingBenchEntry(await deletePREntry(user_id, date, "bench"));
@@ -125,14 +131,32 @@ export default function DeleteDataModal(props: any) {
       if (deleteDeadlift) {
         setMissingDeadliftEntry(await deletePREntry(user_id, date, "deadlift"));
       }
-      if (
-        missingBodyWeightEntry === 0 &&
-        missingBenchEntry &&
-        missingSquatEntry &&
-        missingDeadliftEntry
-      ) {
-        document.location.reload();
+
+      if (missingBodyWeightEntry) {
+        toast.error(
+          "Looks like there's no record for your body weight on that day",
+          errorToastOptions
+        );
       }
+      if (missingBenchEntry) {
+        toast.error(
+          "Looks like there's no record for a bench PR on that day",
+          errorToastOptions
+        );
+      }
+      if (missingSquatEntry) {
+        toast.error(
+          "Looks like there's no record for a squat PR on that day",
+          errorToastOptions
+        );
+      }
+      if (missingDeadliftEntry) {
+        toast.error(
+          "Looks like there's no record for a deadlift PR on that day",
+          errorToastOptions
+        );
+      }
+      document.location.reload();
     }
   }
 

@@ -17,21 +17,15 @@ import DeleteDataModal from "@/components/DeleteDataModal";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Dashboard() {
-  const bodyWeightData = PullBodyWeightData();
-  const benchData = PullBenchData();
-  const squatData = PullSquatData();
-  const deadliftData = PullDeadliftData();
+  const [bodyWeightData, setBodyWeightData] = useState(PullBodyWeightData());
+  const [benchData, setBenchData] = useState(PullBenchData());
+  const [squatData, setSquatData] = useState(PullSquatData());
+  const [deadliftData, setDeadliftData] = useState(PullDeadliftData());
   const [addDataModalIsOpen, setAddDataModalIsOpen] = useState(false);
   const [deleteDataModalIsOpen, setDeleteDataModalIsOpen] = useState(false);
 
   const session = useSession();
   const { push } = useRouter();
-
-  useEffect(() => {
-    if (!session) {
-      push("/login");
-    }
-  }, [session]);
 
   function openAddDataModal() {
     setAddDataModalIsOpen(true);
