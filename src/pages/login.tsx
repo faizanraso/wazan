@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import { Auth } from "@supabase/auth-ui-react";
-import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import {
+  useSession,
+  useSupabaseClient,
+  useUser,
+} from "@supabase/auth-helpers-react";
 
 import { Inter } from "next/font/google";
 import logo from "../../public/wazan-logo-with-background.png";
@@ -12,15 +16,14 @@ import { customTheme } from "@/styles/LoginUITheme";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Login() {
-  const session = useSession();
   const supabase = useSupabaseClient();
-  const { push } = useRouter();
+  const user = useUser();
 
   useEffect(() => {
-    if (session) {
-      push("/gains");
+    if (user) {
+      Router.push("/gains");
     }
-  }, [push, session]);
+  }, [user]);
 
   return (
     <>
@@ -48,6 +51,7 @@ export default function Login() {
               </span>
               <div className="w-full bg-white rounded-lg shadow p-10 md:mt-0 sm:max-w-md xl:p-0 ">
                 <Auth
+                  redirectTo="http://localhost:3000/gains"
                   supabaseClient={supabase}
                   appearance={{
                     theme: customTheme,
