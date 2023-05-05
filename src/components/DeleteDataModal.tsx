@@ -57,7 +57,8 @@ export default function DeleteDataModal(props: any) {
       .select("weight")
       .eq("user_id", user_id)
       .eq("date", date);
-    if (data !== null && data.length > 1) {
+    console.log(data);
+    if (data !== null && data.length > 0) {
       const { data, error } = await supabase
         .from("body_weight_data")
         .delete()
@@ -81,7 +82,7 @@ export default function DeleteDataModal(props: any) {
       .eq("user_id", user_id)
       .eq("date", date)
       .eq("exercise", exercise);
-    if (data !== null && data.length > 1) {
+    if (data !== null && data.length > 0) {
       const { data, error } = await supabase
         .from("pr_data")
         .delete()
@@ -156,6 +157,7 @@ export default function DeleteDataModal(props: any) {
           errorToastOptions
         );
       }
+
       document.location.reload();
     }
   }
