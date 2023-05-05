@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Head from "next/head";
+import Router from "next/router";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
@@ -13,6 +14,7 @@ import PullSquatData from "@/functions/PullSquatData";
 import PullDeadliftData from "@/functions/PullDeadliftData";
 import AddDataModal from "@/components/AddDataModal";
 import DeleteDataModal from "@/components/DeleteDataModal";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +26,17 @@ export default function Dashboard() {
 
   const [addDataModalIsOpen, setAddDataModalIsOpen] = useState(false);
   const [deleteDataModalIsOpen, setDeleteDataModalIsOpen] = useState(false);
+  const supabase = useSupabaseClient();
+
+  useEffect(() => {
+    async function isLoggedIn() {
+      const sessoionStatus = (await supabase.auth.getSession()).data.session;
+      if (sessoionStatus === null) {
+        Router.push("/login");
+      }
+    }
+    isLoggedIn();
+  }, []);
 
   function openAddDataModal() {
     setAddDataModalIsOpen(true);
