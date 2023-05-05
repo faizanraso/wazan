@@ -6,6 +6,7 @@ import { useSession } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
 import logo from "../../public/wazan-logo-with-background.png";
+import screenshot from "../../public/screenshot.png";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 
@@ -96,6 +97,13 @@ export default function Home() {
                 </span>
               </button>
             </Link>
+            <div className="screenshot-div mt-10">
+              <Image
+                src={screenshot}
+                alt="website-screenshot"
+                className="rounded-lg shadow-xl dark:shadow-gray-600 min-w-full h-auto"
+              />
+            </div>
           </section>
           <section>{/* screen shot of app */}</section>
         </div>

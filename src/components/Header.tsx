@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { Inter } from "next/font/google";
 import logo from "../../public/wazan-logo-with-background.png";
+import pfp from "../../public/pfp.png";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 import router from "next/router";
@@ -54,9 +55,9 @@ export default function Header() {
           </div>
           <div className="flex items-center text-center justify-center text-xs font-medium">
             <div className="px-1 flex flex-row items-center justify-center">
-              <img
-                alt="Man"
-                src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+              <Image
+                src={pfp}
+                alt="profile-picture"
                 className="h-8 w-8 rounded-full object-cover hover:drop-shadow-2xl"
               />
               <p className="ms-2 hidden text-left text-xs sm:block">
