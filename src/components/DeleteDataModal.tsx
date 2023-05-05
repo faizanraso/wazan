@@ -20,6 +20,13 @@ export default function DeleteDataModal(props: any) {
   const [deleteSquat, setDeleteSquat] = useState<boolean>(false);
   const [deleteDeadlift, setDeleteDeadlift] = useState<boolean>(false);
 
+  const [missingBodyWeightEntry, setMissingBodyWeightEntry] =
+    useState<boolean>(false);
+  const [missingBenchEntry, setMissingBenchEntry] = useState<boolean>(false);
+  const [missingSquatEntry, setMissingSquatEntry] = useState<boolean>(false);
+  const [missingDeadliftEntry, setMissingDeadliftEntry] =
+    useState<boolean>(false);
+
   const supabase = useSupabaseClient();
 
   const errorToastOptions: ToastOptions = {
@@ -47,10 +54,21 @@ export default function DeleteDataModal(props: any) {
   async function deleteBodyWeightEntry(user_id: string | undefined, date: any) {
     const { data, error } = await supabase
       .from("body_weight_data")
-      .delete()
+      .select("weight")
       .eq("user_id", user_id)
       .eq("date", date);
-    if (error) console.log(error);
+    console.log(data);
+    if (data !== null && data.length > 0) {
+      const { data, error } = await supabase
+        .from("body_weight_data")
+        .delete()
+        .eq("user_id", user_id)
+        .eq("date", date);
+      if (error) console.log(error);
+    } else {
+      return true;
+    }
+    return false;
   }
 
   async function deletePREntry(
@@ -60,17 +78,34 @@ export default function DeleteDataModal(props: any) {
   ) {
     const { data, error } = await supabase
       .from("pr_data")
-      .delete()
+      .select("weight")
       .eq("user_id", user_id)
       .eq("date", date)
       .eq("exercise", exercise);
-    if (error) console.log(error);
+    if (data !== null && data.length > 0) {
+      const { data, error } = await supabase
+        .from("pr_data")
+        .delete()
+        .eq("user_id", user_id)
+        .eq("date", date)
+        .eq("exercise", exercise);
+      if (error) console.log(error);
+    } else {
+      return true;
+    }
+    return false;
   }
 
   async function deleteData(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (date === "") {
       toast.error("Please enter a date 📅", errorToastOptions);
+      return;
+    } else if (new Date(date) > new Date()) {
+      toast.error(
+        "Looks like you're trying to enter data for a future date 😅",
+        errorToastOptions
+      );
       return;
     } else if (
       deleteBodyWeight === false &&
@@ -86,17 +121,43 @@ export default function DeleteDataModal(props: any) {
     } else {
       const user_id = (await supabase.auth.getUser()).data.user?.id;
       if (deleteBodyWeight) {
-        await deleteBodyWeightEntry(user_id, date);
+        setMissingBodyWeightEntry(await deleteBodyWeightEntry(user_id, date));
       }
       if (deleteBench) {
-        await deletePREntry(user_id, date, "bench");
+        setMissingBenchEntry(await deletePREntry(user_id, date, "bench"));
       }
       if (deleteSquat) {
-        await deletePREntry(user_id, date, "squat");
+        setMissingSquatEntry(await deletePREntry(user_id, date, "squat"));
       }
       if (deleteDeadlift) {
-        await deletePREntry(user_id, date, "deadlift");
+        setMissingDeadliftEntry(await deletePREntry(user_id, date, "deadlift"));
       }
+
+      if (missingBodyWeightEntry) {
+        toast.error(
+          "Looks like there's no record for your body weight on that day",
+          errorToastOptions
+        );
+      }
+      if (missingBenchEntry) {
+        toast.error(
+          "Looks like there's no record for a bench PR on that day",
+          errorToastOptions
+        );
+      }
+      if (missingSquatEntry) {
+        toast.error(
+          "Looks like there's no record for a squat PR on that day",
+          errorToastOptions
+        );
+      }
+      if (missingDeadliftEntry) {
+        toast.error(
+          "Looks like there's no record for a deadlift PR on that day",
+          errorToastOptions
+        );
+      }
+
       document.location.reload();
     }
   }

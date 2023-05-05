@@ -21,17 +21,9 @@ export default function Dashboard() {
   const benchData = PullBenchData();
   const squatData = PullSquatData();
   const deadliftData = PullDeadliftData();
+
   const [addDataModalIsOpen, setAddDataModalIsOpen] = useState(false);
   const [deleteDataModalIsOpen, setDeleteDataModalIsOpen] = useState(false);
-
-  const session = useSession();
-  const { push } = useRouter();
-
-  useEffect(() => {
-    if (!session) {
-      push("/login");
-    }
-  }, [session]);
 
   function openAddDataModal() {
     setAddDataModalIsOpen(true);

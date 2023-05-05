@@ -124,6 +124,12 @@ export default function AddDataModal(props: any) {
     if (date === "") {
       toast.error("Please enter a date 📅", errorToastOptions);
       return;
+    } else if (new Date(date) > new Date()) {
+      toast.error(
+        "Looks like you're trying to enter data for a future date 😅",
+        errorToastOptions
+      );
+      return;
     } else if (
       bodyWeight == undefined &&
       benchWeight == undefined &&
