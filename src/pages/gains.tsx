@@ -36,7 +36,7 @@ export default function Dashboard() {
       }
     }
     isLoggedIn();
-  }, []);
+  }, [supabase.auth]);
 
   function openAddDataModal() {
     setAddDataModalIsOpen(true);

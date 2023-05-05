@@ -20,7 +20,7 @@ export default function Header() {
       setUserEmail((await supabase.auth.getUser()).data.user?.email);
     }
     getUserEmail();
-  }, []);
+  }, [userEmail, supabase.auth]);
 
   useEffect(() => {
     if (dropdownVisiblbe) {
