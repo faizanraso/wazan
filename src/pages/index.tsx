@@ -86,8 +86,8 @@ export default function Home() {
             <p className="mt-1.5 text-lg text-gray-600 py-5">
               Say goodbye to complicated workout trackers and hello to a simpler
               way to track your fitness progress. Wazan makes it easy to log
-              PR's and bodyweight - the two things people really want to track -
-              in one convenient place.
+              {"PR's"} and bodyweight - the two things people really want to
+              track - in one convenient place.
             </p>
             <Link href="/login">
               <button className="mx-auto mt-5 gap-2 rounded-xl border-4 border-black text-black px-8 py-4 font-bold shadow-[6px_6px_0_0_#000] transition hover:shadow-none focus:outline-none focus:ring active:bg-cyan-50">
@@ -105,7 +105,6 @@ export default function Home() {
               />
             </div>
           </section>
-          <section>{/* screen shot of app */}</section>
         </div>
       </main>
       <Footer />

@@ -20,7 +20,7 @@ export default function Login() {
     if (session) {
       push("/gains");
     }
-  }, [session]);
+  }, [push, session]);
 
   return (
     <>
@@ -37,10 +37,7 @@ export default function Login() {
         <section>
           <div>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
-              <a
-                href="/"
-                className="flex items-center mb-6 text-2xl font-semibold text-gray-900 gap-2"
-              >
+              <span className="flex items-center mb-6 text-2xl font-semibold text-gray-900 gap-2">
                 <Image
                   src={logo}
                   alt="logo"
@@ -48,7 +45,7 @@ export default function Login() {
                   className="rounded-lg"
                 />
                 Wazan
-              </a>
+              </span>
               <div className="w-full bg-white rounded-lg shadow p-10 md:mt-0 sm:max-w-md xl:p-0 ">
                 <Auth
                   supabaseClient={supabase}
