@@ -51,3 +51,8 @@ The project is built using the following technologies:
 - Tailwind CSS: A utility-first CSS framework for rapid UI development.
 - Supabase: An open-source alternative to Firebase that provides a backend-as-a-service with real-time updates using PostgreSQL.
 - PostgreSQL: A powerful, open-source object-relational database system.
+
+## License
+This project is licensed under the MIT License.
+
+
