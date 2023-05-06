@@ -16,21 +16,23 @@ You can access the live website at https://wazan.vercel.app/.
 ## Getting Started
 
 1. Clone the repository
-'''git clone https://github.com/faizan/wazan.git'''
+```git clone https://github.com/faizan/wazan.git```
 
 2. Navigate to the project directory:
-''' cd wazan '''
+```cd wazan```
 
 3. Install the dependencies:
-''' npm install '''
+```npm install```
 
 4. Set up your environment variables:
 Create a .env.local file in the project root and add the following environment variables:
-''' NEXT_PUBLIC_SUPABASE_URL=<YOUR_SUPABASE_URL>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<YOUR_SUPABASE_ANON_KEY> '''
+``` 
+NEXT_PUBLIC_SUPABASE_URL=<YOUR_SUPABASE_URL>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<YOUR_SUPABASE_ANON_KEY> 
+```
 
 5. Start the development server:
-''' npm run dev '''
+```npm run dev```
 
 ## Tech Stack
 
