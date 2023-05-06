@@ -79,14 +79,14 @@ export default function Home() {
       <main className={inter.className}>
         <div className="flex flex-col px-20 py-16 mt-32 min-h-screen text-center ">
           <section className="justify-center">
-            <h1 className="text-7xl font-bold text-black py-5 font-extrabold">
+            <h1 className="text-6xl font-bold text-black py-5 font-extrabold text-center">
               Track Your Fitness Progress.{" "}
               <span className="text-sky-600">Simply.</span>
             </h1>
             <p className="mt-1.5 text-lg text-gray-600 py-5">
               Say goodbye to complicated workout trackers and hello to a simpler
               way to track your fitness progress. Wazan makes it easy to log
-              {"PR's"} and bodyweight - the two things people really want to
+              {" PR's "} and bodyweight - the two things people really want to
               track - in one convenient place.
             </p>
             <Link href="/login">
