@@ -42,16 +42,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<YOUR_SUPABASE_ANON_KEY>
 npm run dev
 ```
 
-## Tech Stack
-
-The project is built using the following technologies:
-- Next.js: A React framework for server-side rendering, static generation, and serverless functions.
-- TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
-- React: A JavaScript library for building user interfaces.
-- Tailwind CSS: A utility-first CSS framework for rapid UI development.
-- Supabase: An open-source alternative to Firebase that provides a backend-as-a-service with real-time updates using PostgreSQL.
-- PostgreSQL: A powerful, open-source object-relational database system.
-
 ## License
 This project is licensed under the MIT License.
 
