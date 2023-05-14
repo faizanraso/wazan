@@ -5,7 +5,8 @@ Wazan is a web application built using Next.js, TypeScript, React, Tailwind CSS,
 You can access the live website at https://wazan.vercel.app/.
 
 
-https://github.com/faizanraso/wazan/assets/59986120/5d4fc533-9c93-45f3-95c3-f4a43a5da615
+https://github.com/faizanraso/wazan/assets/59986120/cce865fb-f503-4dc3-afff-ffab60980740
+
 
 
 ## Features
