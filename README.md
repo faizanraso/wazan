@@ -1,4 +1,4 @@
-# wazan
+# <a href="https://wazan.vercel.app/">wazan</a>
 
 Wazan is a web application built using Next.js, TypeScript, React, Tailwind CSS, Supabase, and a PostgreSQL database. Wazan allows users to track their main lifts, such as deadlifts, bench press, and squats, as well as monitor their body weight over time. It provides a simple and intuitive interface for users to log their workouts and visualize their progress.
 
